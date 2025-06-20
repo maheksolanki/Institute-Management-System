@@ -8,7 +8,7 @@ module.exports = (req, res, next) =>{
   }catch(err)
   {
     return res.status(401).json({
-      msg: "invalid token",
+      msg: "invalid token please update your token",
     })
   }
 }
