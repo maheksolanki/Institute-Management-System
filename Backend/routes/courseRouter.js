@@ -7,7 +7,7 @@ const jwt = require("jsonwebtoken");
 const coludinary = require("cloudinary").v2;
 
 //It initializes/configures the Cloudinary SDK with your account credentials stored in environment variables.
- coludinary.config({
+ coludinary.config({   
     cloud_name: process.env.CLOUD_NAME,
     api_key: process.env.API_KEY,
     api_secret: process.env.API_SECRET,
@@ -85,6 +85,54 @@ router.get('/course-detail/:id', checkAuth , (req,res)=>{
 })
 
 //4. api for deleting a course
+router.delete('/:id',checkAuth , (req,res)=>{
 
+  const token = req.headers.authorization.split(" ")[1];
+  const verify = jwt.verify(token, "secretkey");
+
+  Course.findById(req.params.id)
+  .then((course)=>{
+    console.log(course);
+    if(course.uId == verify.uid){
+      Course.findByIdAndDelete(req.params.id)
+      .then((result)=>{
+        coludinary.uploader.destroy(course.imageId,(deletedImage)=>{
+          res.status(200).json({
+            msg: "course deleted successfully",
+            course: result,
+          })
+        })
+      })
+      .catch((err)=>
+      {
+        res.status(500).json({
+          error: err,
+        })
+      })
+    }
+    else{
+      res.status(500).json({
+      msg: "bad request",
+    })
+    }
+  })
+})
+
+//5. api for updating a course
+router.put('/:id',checkAuth , (req,res)=>{
+  const token = req.headers.authorization.split(" ")[1];
+  const verify = jwt.verify(token, "secretkey");
+  console.log(verify.uid);
+
+  Course.findById(req.params.id)
+  .then((course)=>{
+    console.log(course);
+  })
+  .catch((err)=>{
+    res.status(500).json({                     
+      error: err,
+    })
+  })
+})
 
 module.exports = router;
