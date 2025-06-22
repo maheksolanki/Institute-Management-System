@@ -278,6 +278,11 @@ const token = req.headers.authorization;
 - **PATCH:** Partial updates (recommended for single field changes)
 
 
+20. Let create apis for student first create api for add student 
+
+
+
+
 
 ## 🎯 Key Takeaways
 
