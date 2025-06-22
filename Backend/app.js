@@ -24,7 +24,7 @@ mongoose.connect('mongodb+srv://root:root@bapasitaram.d4mxzp0.mongodb.net/?retry
 app.use(bodyParser.json());// parse means convert the json data to javascript object
 
 app.use(fileUpload({
-    useTempFiles : true, // ano use jyre backend mathi koi image ave tyre tene ahi temporary store karse and pachhi coludinary ma store thase.
+    useTempFiles : true, // ano use jyre backend mathi koi image ave tyre tene ahi temporary store karse and pachhi cloudinary ma store thase.
     // tempFileDir : '/tmp/'
 }));
 

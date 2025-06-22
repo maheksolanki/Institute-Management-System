@@ -219,37 +219,63 @@ const token = req.headers.authorization;
 - Array format: `[0] = "Bearer"`, `[1] = "actual_token"`
 - **"Bearer"** means "whoever holds the token has access"
 
-19. let we create api for delete the course
+## 19. Course Management API - Delete & Update Operations
 
-- /:id it means we take the parameter that pass on to the url.
- for that we use req.param.id
+## 🗑️ Delete Course API
 
-- image cloudinary par upload karva mate coludinary.uploder.uplod method use thay chhe
-and delete karva mate cloudinary.uploder.destroy method no use thay chhe
+### **Endpoint:** `DELETE /:id`
+- **Parameter:** `req.params.id` - Course ID from URL
 
-- process for delete : 
- 1. verify the token of user
- 2. then find the parameter id in your course for delete
- 3. if promise statisfy then give course detail.
- 4. if course id which is entered and verify id is matched then destroy the image from cloudinary and also course delte from database
+### **Cloudinary Methods:**
+- **Upload:** `cloudinary.uploader.upload()`
+- **Delete:** `cloudinary.uploader.destroy()`
 
- 20. let next create api for updating the course
- - we can use put or patch for updating the course
- - in put we take the all data from frontend and in patch we take some data and updating the course.
- - meand put use when we want to change the all data , if we change only one or two filed then it change other filed to null.
- - and in patch it only change specific field
- - 
+### **Delete Process Steps:**
+1. **User Authentication**
+   - Verify user token
+   
+2. **Course Identification**
+   - Find course using parameter ID
+   
+3. **Validation**
+   - Check if course exists
+   - Return course details if found
+   
+4. **Authorization & Deletion**
+   - Match course ID with verified user ID
+   - If authorized:
+     - Destroy image from Cloudinary
+     - Delete course from database
 
+---
 
+## 20. 🔄 Update Course API
 
-
-
-
-
-
-
- 
+### **HTTP Methods:**
+- **PUT:** Updates all fields (replaces entire resource)
+  - Requires all data from frontend
+  - Missing fields become null
   
+- **PATCH:** Updates specific fields only
+  - Accepts partial data
+  - Only modifies provided fields
+
+### **Update Process Steps:**
+1. **User Authentication**
+   - Check if user is logged in
+   
+2. **Image Handling Logic**
+   - **No new image uploaded:**
+     - Keep existing image unchanged
+   
+   - **New image uploaded:**
+     - Delete old image from Cloudinary
+     - Upload new image to Cloudinary
+     - Update course with new image URL
+
+### **When to Use Each Method:**
+- **PUT:** Complete course data replacement
+- **PATCH:** Partial updates (recommended for single field changes)
 
 
 
