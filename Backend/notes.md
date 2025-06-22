@@ -279,8 +279,16 @@ const token = req.headers.authorization;
 
 
 20. Let create apis for student first create api for add student 
+it is same like we add the course
+first create the new student of Student schema and save this using .save() method.
 
+21. crete the api for get all student
 
+22. crete the api geting all student of perticular course
+
+23. create api for delete student
+
+24. create api for updating te student.
 
 
 
