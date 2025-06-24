@@ -193,5 +193,23 @@ router.put('/:id',checkAuth , (req,res)=>{
     })
   })
 })
+//6. get latest 5 students dataSt
+router.get('/latest-students',checkAuth,(req,res)=>{
+  const token = req.headers.authorization.split(" ")[1];
+  const verify = jwt.verify(token, "secretkey");
 
+  Student.find({uId : verify.uid})
+  .sort({$natural :-1}).limit(5)// Sort by natural order to get the latest documents
+  .then((result)=>{
+    res.status(200).json({
+      students: result,
+    })
+  })
+  .catch((err)=>{
+    res.status(500).json({
+      error: err,
+    })
+  })
+
+})
 module.exports = router;

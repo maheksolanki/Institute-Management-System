@@ -290,6 +290,12 @@ first create the new student of Student schema and save this using .save() metho
 
 24. create api for updating te student.
 
+25. next we create the api to get latest 5 student added
+ for this we use .sort({ $natural: -1 }): Sorts documents in reverse insertion order (i.e., latest added first) 
+ and then
+.limit(5): Limits the result to 5 documents.
+
+means reverse na sort kari ne 5 student get karsu
 
 
 ## 🎯 Key Takeaways
